@@ -1,0 +1,11 @@
+<div class="questionnaire-view login-view">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form class="form-inline" ng-submit="vm.logIn()">
+        <input ng-model="vm.localUser.email"    id="login-email" class="form-control" type="email" required placeholder="Login email…">
+        <input ng-model="vm.localUser.password" id="login-password" class="form-control" type="password" required placeholder="Password…">
+        <button type="submit" class="form-submit btn btn-primary">Save</button>
+      </form>
+    </div>
+  </div>
+</div>

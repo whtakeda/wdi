@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+
+  <title>Local Storage Example</title>
+  <meta name="description" content="An introduction to token-based auth.">
+
+  <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <script src="app.module.js"></script>
+  <script src="app/pens.controller.js"></script>
+  <style type="text/css">
+    .center {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .container {
+      min-width: 400px;
+    }
+
+    .pure-table { min-width: 80%; }
+    input { width: 80%; }
+
+    @media only screen and (max-width: 480px) {
+      .pure-form input[type=text],
+      .pure-table { width: 100%; }
+    }
+
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+    }
+
+    .pure-button {
+      border-radius: 4px;
+    }
+
+    .button-error {
+      color: white;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      background: rgb(202, 60, 60); /* this is a maroon */
+    }
+
+    .remove {
+      position: relative;
+      bottom: 2px;
+      left: 2px;
+      text-decoration: none;
+      border: 1px solid rgb(202, 60, 60);
+      background-color: rgb(202, 60, 60);
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+      border-radius: 8px;
+      color: white !important;
+    }
+  </style>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body ng-controller="PensController as vm">
+  <div class="container center">
+    <header>
+      <h1>The Pensieve</h1>
+    </header>
+    <main>
+      <h4>Lay down your troubles, friend</h4>
+
+      <p>
+        <form class="pure-form" ng-submit="vm.submit()">
+          <fieldset>
+            <legend>Enter your memories:</legend>
+            <input type="text" name="memory" id="memory" ng-model="vm.newPen" placeholder="That time I saw Michael Jackson on tv and got scared…">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+          </fieldset>
+        </form>
+      </p>
+
+      <table class="pure-table pure-table-horizontal center">
+        <thead>
+          <tr>
+            <th class="center">Memories</th>
+          </tr>
+        </thead>
+        <tbody id="memories-list" ng-repeat="pens in vm.data.pens">
+          <tr><td>{{pens}}<a class="remove" href="" ng-click="vm.remove(pens)">x</a></td></tr>
+        </tbody>
+      </table>
+
+      <p>
+        <button class="pure-button button-error" ng-click="vm.clear()">Clear All</button>
+      </p>
+    </main>
+    <footer>
+      <hr>
+      <span>Made with ⁂ at Hogwarts.</span>
+    </footer>
+  </div> <!-- div.container -->
+</body>
+</html>

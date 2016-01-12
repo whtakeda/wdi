@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+
+  <title>Angular Template</title>
+  <meta name="description" content="lots of ng">
+
+  <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+  <script src="/js/vendor/angular-ui-router-0.2.15.js"></script>
+</head>
+<body ng-app="app" ng-controller="NavController as vm" ng-cloak>
+
+  <div class="container-fluid">
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <ul class="nav navbar-nav">
+            <li><a ui-sref="user" ng-class="{'disabled': !vm.user.isLoggedIn()}" class="btn">User</a></li>
+            <li ng-hide="vm.user.isLoggedIn()"><a ui-sref="login" class="btn">Login</a></li>
+            <li ng-show="vm.user.isLoggedIn()"><a href="" class="btn" ng-click="vm.logOut()">Logout {{ vm.user.displayName() }}</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <h1><a ui-sref="index">
+        Welcome
+      </a></h1>
+    </header>
+
+    <main class="content" ui-view>
+      <!-- PAGE TEMPLATES INSERT HERE -->
+    </main>
+  </div> <!-- div.container-fluid -->
+
+  <footer>
+    <hr>
+    <span>Made with <i class="glyphicon glyphicon-star"></i> in DTLA.</span>
+    <br>
+    <span> © 2015, WDI</span> &nbsp; &nbsp;
+    <span><a href="" onclick="window.alert('Trust no one.')">Privacy Policy</a></span>
+  </footer>
+
+  <!-- App scripts -->
+  <script src="/js/app/app.module.js"></script>
+  <script src="/js/app/app.routes.js"></script>
+  <script src="/js/app/user/user.dataservice.js"></script>
+  <script src="/js/app/user/login.controller.js"></script>
+  <script src="/js/app/layout/nav.controller.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Token Slinger</title>
+  <meta name="description" content="An introduction to token-based auth.">
+
+  <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+</head>
+<body>
+  <div class="container center">
+    <header>
+      <h1>Welcome to the Token Slinger!</h1>
+    </header>
+    <main>
+      <h3><em>If you need tokens, you've come to the right place!</em></h3>
+
+      <p>
+        In order to get a token, you first need to register as a user
+        with the following fields!.
+
+        <table class="pure-table pure-table-horizontal center">
+          <caption>User Fields</caption>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>email</code></td>
+              <td>String: must be unique.</td>
+            </tr>
+            <tr>
+              <td><code>name</code></td>
+              <td>String.</td>
+            </tr>
+            <tr>
+              <td><code>password</code></td>
+              <td>String: must be greater than 4 characters.</td>
+            </tr>
+            <tr>
+              <td><code>dob</code></td>
+              <td>Date (string): date of birth, in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format.</td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+
+      <br>
+
+      <p>
+        Next, you must send that user's credentials to the token creation
+        path to get your token. Finally, use your token to request further
+        information about the user.
+      </p>
+
+      <p>
+        Below are the routes you can explore in order to create a user,
+        generate tokens, or use those tokens to authorize requests.
+
+        <table class="pure-table center">
+          <caption>Routes</caption>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Path/Resource</th>
+              <th>Response Content</th>
+              <th>Errors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="pure-table-odd">
+              <td><code>GET</code></td>
+              <td><code>/</code></td>
+              <td>This page (HTML).</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><code>GET</code></td>
+              <td><code>/api</code></td>
+              <td>A list of available API routes (JSON).</td>
+              <td></td>
+            </tr>
+            <tr class="pure-table-odd">
+              <td><code>POST</code></td>
+              <td><code>/api/users</code></td>
+              <td>The created user's unique identifier.</td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">422</a></code>
+              </td>              </tr>
+            <tr>
+              <td><code>POST</code></td>
+              <td><code>/api/token</code></td>
+              <td>A new JSON web token.</td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">401</a></code><br>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            <tr class="pure-table-odd auth">
+              <td><code>GET</code></td>
+              <td><code>/api/me</code></td>
+              <td>The current (authenticated) user's information.</td>
+              <td>
+                <code><a href="#errors">401</a></code>
+                <code><a href="#errors">403</a></code><br>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            <!--
+            <tr class="auth">
+              <td><code>GET</code></td>
+              <td><code>/users/:id</code></td>
+              <td>The given user's information.</td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">401</a></code><br>
+                <code><a href="#errors">404</a></code>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            <tr class="pure-table-odd auth">
+              <td><code>PUT</code></td>
+              <td><code>/users/:id</code></td>
+              <td>
+                Update the given user; return the given user's<br>
+                information.
+              </td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">401</a></code><br>
+                <code><a href="#errors">404</a></code>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            <tr class="auth">
+              <td><code>PATCH</code></td>
+              <td><code>/users/:id</code></td>
+              <td>
+                Update the given user; return the given user's<br>
+                information.
+              </td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">401</a></code><br>
+                <code><a href="#errors">404</a></code>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            <tr class="pure-table-odd auth">
+              <td><code>DELETE</code></td>
+              <td><code>/users/:id</code></td>
+              <td>
+                Remove the given user, invalidate the current<br>
+                token; return a confirmation.</td>
+              <td>
+                <code><a href="#errors">400</a></code>
+                <code><a href="#errors">401</a></code><br>
+                <code><a href="#errors">404</a></code>
+                <code><a href="#errors">422</a></code>
+              </td>
+            </tr>
+            -->
+          </tbody>
+        </table>
+
+        <strong class="note">
+          Note: authenticated routes are indicated by being colored <span class="auth">red</span>.
+        </strong>
+      </p>
+
+      <p>
+        <table id="errors" class="pure-table center">
+          <caption>Error Codes</caption>
+          <thead>
+            <tr class="center">
+              <th>Code</th>
+              <th>Title</th>
+              <th>Reasons for the Error</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="center"><code>400</code></td>
+              <td class="center"><strong>Bad Request</strong></td>
+              <td>Not sending JSON as the body; malformed JSON (parse errors).</td>
+            </tr>
+            <tr>
+              <td class="center"><code>401</code></td>
+              <td class="center"><strong>Unauthorized</strong></td>
+              <td>Failed to send authorization credentials (token); malformed credentials.</td>
+            </tr>
+            <tr>
+              <td class="center"><code>403</code></td>
+              <td class="center"><strong>Forbidden</strong></td>
+              <td>Authentication credentials were given, but failed to authorize for this resources.</td>
+            </tr>
+            <tr>
+              <td class="center"><code>404</code></td>
+              <td class="center"><strong>Not Found</strong></td>
+              <td>Route does not exist; <strong>used in place of a <code>403 Forbidden</code> for many routes so that unique ids are not "leaked".</strong></td>
+            </tr>
+            <tr>
+              <td class="center"><code>422</code></td>
+              <td class="center"><strong>Unprocessable Entity</strong></td>
+              <td>Sending invalid fields or failing validation on those fields.</td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
+    </main>
+    <footer>
+      <hr>
+      <span>Made with ★ in DTLA.</span>
+    </footer>
+  </div> <!-- div.container -->
+</body>
+</html>

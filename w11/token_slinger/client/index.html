@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+
+  <title>Token Slinger Client</title>
+  <meta name="description" content="An introduction to token-based auth.">
+
+  <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <style type="text/css">
+    .center {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .container {
+      min-width: 400px;
+    }
+
+    .pure-button {
+      border-radius: 4px;
+    }
+
+    .pure-group {
+      display: inline-block;
+    }
+  </style>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body ng-controller="UsersController as vm">
+  <div class="container center">
+    <header>
+      <h1>Create a User, Get a Token, Authenticate a Request</h1>
+    </header>
+    <main>
+      <h4>Create User Below</h4>
+      <form id="user" class="pure-form center" ng-submit="vm.submitUser()">
+        <fieldset class="pure-group center">
+          <input type="email" name="email" class="email" placeholder="user@domain.com" ng-model="vm.newUser.email">
+          <input type="text" name="name" class="name" placeholder="Terry Winters" ng-model="vm.newUser.name">
+          <input type="password" name="password" class="password" placeholder="secretpassword" ng-model="vm.newUser.password">
+          <input type="date" name="dob" class="dob" placeholder="" ng-model="vm.newUser.dob">
+          <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </fieldset>
+      </form>
+
+      <h4>Log In User</h4>
+      <form id="token" class="pure-form center" ng-submit="vm.grantToken()">
+        <fieldset class="pure-group center">
+          <input type="email" name="email" class="email" placeholder="user@domain.com" ng-model="vm.user.email">
+          <input type="password" name="password" class="password" placeholder="secretpassword" ng-model="vm.user.password">
+          <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </fieldset>
+      </form>
+      <pre id="success" ng-model="vm.userData" ng-repeat="(key,value) in vm.userData">
+        {{key}}: {{value}}
+      </pre>
+      <pre id="failure" ng-bind="vm.error"></pre>
+    </main>
+  </div> <!-- div.container -->
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+  <script src="/app/app.module.js"></script>
+  <script src="/app/users/users.controller.js"></script>
+
+</body>
+</html>
+

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Local Storage Example</title>
+  <meta name="description" content="An introduction to token-based auth.">
+
+  <link rel="stylesheet" type="text/css" href="//yui.yahooapis.com/pure/0.6.0/pure-min.css">
+  <style type="text/css">
+    .center {
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .container {
+      min-width: 400px;
+    }
+
+    .pure-table { min-width: 80%; }
+    input { width: 80%; }
+
+    @media only screen and (max-width: 480px) {
+      .pure-form input[type=text],
+      .pure-table { width: 100%; }
+    }
+
+    html {
+      position: relative;
+      min-height: 100%;
+    }
+
+    footer {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 40px;
+    }
+  </style>
+
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container center">
+    <header>
+      <h1>The Pensieve</h1>
+    </header>
+    <main>
+      <h4>Lay down your troubles, friend</h4>
+
+      <p>
+        <form class="pure-form">
+          <fieldset>
+            <legend>Enter your memories:</legend>
+            <input type="text" name="memory" id="memory" placeholder="That time I saw Michael Jackson on tv and got scared…">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+          </fieldset>
+        </form>
+      </p>
+
+      <table class="pure-table pure-table-horizontal center">
+        <thead>
+          <tr>
+            <th class="center">Memories</th>
+          </tr>
+        </thead>
+        <tbody id="memories-list">
+          <!-- Examples:
+          <tr><td>The night my brother said that Christmas wouldn't happen.</td></tr>
+          <tr><td>The first time I tasted Vietnamese food.</td></tr>
+          -->
+        </tbody>
+      </table>
+    </main>
+    <footer>
+      <hr>
+      <span>Made with ⁂ at Hogwarts.</span>
+    </footer>
+  </div> <!-- div.container -->
+
+  <script type="text/javascript">
+    var $form, $input, $memoriesList, pens;
+
+    $(document).ready(function() {
+      $form         = $('form');
+      $input        = $('input');
+      $memoriesList = $('#memories-list');
+      pens = [];
+      pens = [].concat(v);
+      renderPens();
+
+      $form.on('submit', function(evt) {
+        evt.preventDefault();
+
+        var memory = $input.val();
+
+        if (memory) {
+          console.log('Memory submitted:', memory);
+          pens.push(memory);
+          setPens(pens);
+          renderPens(memory);
+        }
+      });
+
+      function renderPens()
+      {
+        $memoriesList.html('');
+        pens.forEach(function(pen){
+          renderMemory(pen)
+        });
+      }
+
+      function setPens(pens)
+      {
+        localStorage.setItem("memoriesList",JSON.stringify(pens));
+      }
+
+      function getPens()
+      {
+          return JSON.parse(localStorage.getItem("memoriesList"));
+      }
+
+      function renderMemory(memory) {
+        $memoryEl = $('<tr>').append($('<td>').text(memory));
+        $memoryEl.appendTo($memoriesList);
+      }
+    });
+  </script>
+</body>
+</html>
